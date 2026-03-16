@@ -3,460 +3,148 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>VPN — Тарифы</title>
+  <title>Pascal VPN</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
-
-  <!-- Digiseller виджет магазина -->
-  <script>!function(e){var l=function(l){return e.cookie.match(new RegExp("(?:^|; )digiseller-"+l+"=([^;]*)"))},i=l("lang"),s=l("cart_uid"),t=i?"&lang="+i[1]:"",d=s?"&cart_uid="+s[1]:"",r=e.getElementsByTagName("head")[0]||e.documentElement,n=e.createElement("link"),a=e.createElement("script");n.type="text/css",n.rel="stylesheet",n.id="digiseller-css",n.href="//shop.digiseller.com/xml/store2_css.asp?seller_id=1202840",a.async=!0,a.id="digiseller-js",a.src="//digiseller.com/store2/digiseller-api.js.asp?seller_id=1202840"+t+d,!e.getElementById(n.id)&&r.appendChild(n),!e.getElementById(a.id)&&r.appendChild(a)}(document);</script>
-
   <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
 
-    :root {
-      --bg:       #0f0f0f;
-      --surface:  #1a1a1a;
-      --border:   #2a2a2a;
-      --text:     #f0f0f0;
-      --muted:    #666;
-      --accent:   #00e5ff;
-      --accent-fg:#0f0f0f;
-      --radius:   12px;
-    }
-
-    html, body {
-      background: var(--bg) !important;
-      color: var(--text) !important;
-      font-family: 'Inter', sans-serif !important;
+    body {
+      background: #0f0f0f;
+      color: #f0f0f0;
+      font-family: 'Inter', sans-serif;
       min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 20px;
     }
 
-    /* ── ШАПКА ── */
-    .site-header {
-      text-align: center;
-      padding: 48px 20px 32px;
+    .logo {
+      font-size: 1.1rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      color: #fff;
+      margin-bottom: 48px;
     }
-    .site-header h1 {
-      font-size: 1.8rem;
+    .logo span { color: #60a5fa; }
+
+    .card {
+      background: #181818;
+      border: 1px solid #272727;
+      border-radius: 16px;
+      padding: 36px 32px;
+      width: 100%;
+      max-width: 340px;
+      text-align: center;
+    }
+
+    .plan-name {
+      font-size: .72rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: #555;
+      margin-bottom: 16px;
+    }
+
+    .price {
+      font-size: 3.2rem;
       font-weight: 800;
-      margin-bottom: 6px;
+      line-height: 1;
+      margin-bottom: 4px;
     }
-    .site-header p {
-      color: var(--muted);
-      font-size: .9rem;
+    .price sup {
+      font-size: 1.2rem;
+      font-weight: 600;
+      vertical-align: super;
+      color: #aaa;
+      margin-right: 2px;
     }
 
-    /* ── ПОДВАЛ ── */
-    .site-footer {
-      text-align: center;
-      padding: 32px 20px 48px;
-      font-size: .78rem;
+    .price-sub {
+      font-size: .82rem;
+      color: #444;
+      margin-bottom: 28px;
+    }
+
+    .divider {
+      height: 1px;
+      background: #222;
+      margin-bottom: 20px;
+    }
+
+    .features {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 28px;
+      text-align: left;
+    }
+    .features li {
+      font-size: .88rem;
+      color: #aaa;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .features li::before {
+      content: '✓';
+      color: #60a5fa;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    .btn {
+      display: block;
+      width: 100%;
+      padding: 14px;
+      background: #60a5fa;
+      color: #080808;
+      border: none;
+      border-radius: 10px;
+      font-size: 1rem;
+      font-weight: 700;
+      font-family: 'Inter', sans-serif;
+      text-decoration: none;
+      cursor: pointer;
+      transition: opacity .2s, transform .15s;
+    }
+    .btn:hover {
+      opacity: .88;
+      transform: translateY(-1px);
+    }
+
+    .footer-note {
+      margin-top: 24px;
+      font-size: .72rem;
       color: #333;
+      text-align: center;
     }
-
-    /* ══════════════════════════════════════
-       DIGISELLER WIDGET DARK OVERRIDE
-       Перебиваем все стили виджета
-    ══════════════════════════════════════ */
-
-    /* Общий контейнер */
-    #digiseller-body,
-    .digiseller-store,
-    .digiseller-store * {
-      font-family: 'Inter', sans-serif !important;
-      box-sizing: border-box !important;
-    }
-
-    /* Фон страницы/секций */
-    .digiseller-store,
-    .digiseller-store .ds-section,
-    .digiseller-store .ds-wrap,
-    .digiseller-store .ds-container,
-    .ds_shop,
-    .ds_shop_wrap {
-      background: var(--bg) !important;
-      color: var(--text) !important;
-      border-color: var(--border) !important;
-      box-shadow: none !important;
-    }
-
-    /* ── НАВИГАЦИЯ / МЕНЮ ── */
-    .ds_header,
-    .ds_nav,
-    .ds_top,
-    .ds_top_wrap,
-    .digiseller-store nav,
-    .digiseller-store header {
-      background: #111 !important;
-      border-bottom: 1px solid var(--border) !important;
-      box-shadow: none !important;
-    }
-
-    .ds_nav a,
-    .digiseller-store nav a,
-    .ds_menu a {
-      color: var(--muted) !important;
-      font-weight: 500 !important;
-      transition: color .2s !important;
-    }
-    .ds_nav a:hover,
-    .digiseller-store nav a:hover {
-      color: var(--accent) !important;
-    }
-
-    /* ── ЛОГОТИП ── */
-    .ds_logo img { filter: brightness(0) invert(1) !important; }
-
-    /* ── ПОИСК ── */
-    .ds_search input,
-    .digiseller-store input[type="search"],
-    .digiseller-store input[type="text"] {
-      background: #111 !important;
-      border: 1px solid var(--border) !important;
-      border-radius: 8px !important;
-      color: var(--text) !important;
-      font-family: 'Inter', sans-serif !important;
-      padding: 8px 14px !important;
-      outline: none !important;
-    }
-    .ds_search input:focus,
-    .digiseller-store input:focus {
-      border-color: var(--accent) !important;
-    }
-
-    /* ── КАРТОЧКИ ТОВАРОВ ── */
-    .ds_product,
-    .ds_item,
-    .ds-product-card,
-    .digiseller-store .product-card,
-    .digiseller-store .item {
-      background: var(--surface) !important;
-      border: 1px solid var(--border) !important;
-      border-radius: var(--radius) !important;
-      box-shadow: none !important;
-      transition: border-color .2s, transform .2s !important;
-      overflow: hidden !important;
-    }
-    .ds_product:hover,
-    .ds_item:hover,
-    .ds-product-card:hover {
-      border-color: #444 !important;
-      transform: translateY(-3px) !important;
-      box-shadow: 0 8px 24px rgba(0,0,0,.4) !important;
-    }
-
-    /* Название товара */
-    .ds_product .ds_name,
-    .ds_product .ds_title,
-    .ds_item .name,
-    .ds-product-card .title {
-      color: var(--text) !important;
-      font-weight: 700 !important;
-      font-size: .95rem !important;
-    }
-
-    /* Описание */
-    .ds_product .ds_info,
-    .ds_item .info,
-    .ds-product-card .description {
-      color: var(--muted) !important;
-      font-size: .85rem !important;
-    }
-
-    /* Цена */
-    .ds_product .ds_price,
-    .ds_item .price,
-    .ds-product-card .price,
-    .ds_price {
-      color: var(--accent) !important;
-      font-weight: 800 !important;
-      font-size: 1.3rem !important;
-    }
-
-    /* Старая цена (скидка) */
-    .ds_product .ds_old_price,
-    .ds_item .old-price,
-    .ds_old_price {
-      color: #444 !important;
-      text-decoration: line-through !important;
-    }
-
-    /* Бейдж скидки */
-    .ds_sale,
-    .ds_discount,
-    .ds-badge-sale {
-      background: rgba(255,180,0,.15) !important;
-      color: #ffb400 !important;
-      border-radius: 6px !important;
-      font-weight: 700 !important;
-      font-size: .72rem !important;
-    }
-
-    /* ── КНОПКИ ── */
-    /* Основная кнопка покупки */
-    .ds_btn_buy,
-    .ds_buy,
-    .btn-buy,
-    .digiseller-store button[class*="buy"],
-    .digiseller-store a[class*="buy"],
-    .ds_product .ds_button,
-    .ds_item .button {
-      background: transparent !important;
-      border: 1px solid var(--border) !important;
-      color: var(--text) !important;
-      border-radius: 8px !important;
-      font-family: 'Inter', sans-serif !important;
-      font-weight: 700 !important;
-      font-size: .9rem !important;
-      padding: 10px 20px !important;
-      cursor: pointer !important;
-      transition: border-color .2s, background .2s !important;
-      box-shadow: none !important;
-      text-transform: none !important;
-      letter-spacing: 0 !important;
-    }
-    .ds_btn_buy:hover,
-    .ds_buy:hover,
-    .btn-buy:hover,
-    .ds_product .ds_button:hover {
-      border-color: rgba(0,229,255,.5) !important;
-      background: rgba(0,229,255,.07) !important;
-      color: var(--text) !important;
-    }
-
-    /* Кнопки добавить в корзину */
-    .ds_btn_cart,
-    .ds_cart_btn,
-    .btn-cart,
-    .digiseller-store button[class*="cart"] {
-      background: var(--accent) !important;
-      color: var(--accent-fg) !important;
-      border: none !important;
-      border-radius: 8px !important;
-      font-family: 'Inter', sans-serif !important;
-      font-weight: 700 !important;
-      font-size: .9rem !important;
-      padding: 10px 20px !important;
-      cursor: pointer !important;
-      transition: opacity .2s, transform .15s !important;
-      box-shadow: none !important;
-      text-transform: none !important;
-    }
-    .ds_btn_cart:hover,
-    .btn-cart:hover {
-      opacity: .85 !important;
-      transform: translateY(-1px) !important;
-    }
-
-    /* Все остальные кнопки */
-    .digiseller-store button,
-    .digiseller-store .btn,
-    .digiseller-store input[type="submit"],
-    .digiseller-store input[type="button"] {
-      background: transparent !important;
-      border: 1px solid var(--border) !important;
-      color: var(--text) !important;
-      border-radius: 8px !important;
-      font-family: 'Inter', sans-serif !important;
-      font-weight: 600 !important;
-      cursor: pointer !important;
-      transition: border-color .2s !important;
-    }
-    .digiseller-store button:hover,
-    .digiseller-store .btn:hover {
-      border-color: rgba(0,229,255,.4) !important;
-    }
-
-    /* ── КОРЗИНА ── */
-    .ds_cart,
-    .ds_cart_wrap,
-    .digiseller-store .cart {
-      background: var(--surface) !important;
-      border: 1px solid var(--border) !important;
-      border-radius: var(--radius) !important;
-      box-shadow: 0 8px 32px rgba(0,0,0,.5) !important;
-      color: var(--text) !important;
-    }
-
-    .ds_cart_item,
-    .digiseller-store .cart-item {
-      border-bottom: 1px solid var(--border) !important;
-      color: var(--text) !important;
-    }
-
-    .ds_cart_total,
-    .digiseller-store .cart-total {
-      color: var(--accent) !important;
-      font-weight: 800 !important;
-    }
-
-    /* Иконка корзины */
-    .ds_cart_icon,
-    .ds_icon_cart {
-      color: var(--text) !important;
-      fill: var(--text) !important;
-    }
-    .ds_cart_count,
-    .ds_badge {
-      background: var(--accent) !important;
-      color: var(--accent-fg) !important;
-      border-radius: 50% !important;
-      font-weight: 800 !important;
-    }
-
-    /* ── КАТЕГОРИИ / ТАБЫ ── */
-    .ds_categories,
-    .ds_tabs,
-    .digiseller-store .categories {
-      background: transparent !important;
-      border-bottom: 1px solid var(--border) !important;
-    }
-
-    .ds_category,
-    .ds_tab,
-    .digiseller-store .category-item {
-      color: var(--muted) !important;
-      border-color: transparent !important;
-      background: transparent !important;
-      font-weight: 600 !important;
-      transition: color .2s !important;
-    }
-    .ds_category:hover,
-    .ds_tab:hover {
-      color: var(--text) !important;
-    }
-    .ds_category.active,
-    .ds_tab.active,
-    .ds_category_active,
-    .digiseller-store .category-item.active {
-      color: var(--accent) !important;
-      border-bottom: 2px solid var(--accent) !important;
-    }
-
-    /* ── ПАГИНАЦИЯ ── */
-    .ds_pagination a,
-    .digiseller-store .pagination a {
-      background: var(--surface) !important;
-      border: 1px solid var(--border) !important;
-      color: var(--muted) !important;
-      border-radius: 6px !important;
-    }
-    .ds_pagination a:hover,
-    .digiseller-store .pagination a:hover {
-      border-color: var(--accent) !important;
-      color: var(--text) !important;
-    }
-    .ds_pagination .active,
-    .digiseller-store .pagination .active {
-      background: var(--accent) !important;
-      color: var(--accent-fg) !important;
-      border-color: var(--accent) !important;
-    }
-
-    /* ── МОДАЛКИ / ПОПАПЫ ── */
-    .ds_modal,
-    .ds_popup,
-    .digiseller-store .modal,
-    .digiseller-store .popup {
-      background: #141414 !important;
-      border: 1px solid var(--border) !important;
-      border-radius: 16px !important;
-      box-shadow: 0 20px 60px rgba(0,0,0,.7) !important;
-      color: var(--text) !important;
-    }
-    .ds_modal_overlay,
-    .ds_popup_overlay {
-      background: rgba(0,0,0,.75) !important;
-      backdrop-filter: blur(6px) !important;
-    }
-    .ds_modal_close,
-    .ds_popup_close {
-      color: var(--muted) !important;
-    }
-    .ds_modal_close:hover,
-    .ds_popup_close:hover {
-      color: var(--text) !important;
-    }
-
-    /* ── ФОРМА ПОКУПКИ ── */
-    .ds_buy_form,
-    .digiseller-store .buy-form {
-      background: transparent !important;
-      border: none !important;
-    }
-    .ds_buy_form label,
-    .digiseller-store .buy-form label {
-      color: var(--muted) !important;
-      font-size: .8rem !important;
-    }
-    .ds_buy_form input,
-    .digiseller-store .buy-form input {
-      background: #111 !important;
-      border: 1px solid var(--border) !important;
-      border-radius: 8px !important;
-      color: var(--text) !important;
-      padding: 10px 14px !important;
-    }
-    .ds_buy_form input:focus,
-    .digiseller-store .buy-form input:focus {
-      border-color: var(--accent) !important;
-      outline: none !important;
-    }
-
-    /* ── SELECT / DROPDOWN ── */
-    .digiseller-store select {
-      background: #111 !important;
-      border: 1px solid var(--border) !important;
-      border-radius: 8px !important;
-      color: var(--text) !important;
-      font-family: 'Inter', sans-serif !important;
-      padding: 8px 12px !important;
-    }
-
-    /* ── ССЫЛКИ ── */
-    .digiseller-store a {
-      color: var(--text) !important;
-      text-decoration: none !important;
-    }
-    .digiseller-store a:hover {
-      color: var(--accent) !important;
-    }
-
-    /* ── ИКОНКИ (SVG) ── */
-    .digiseller-store svg path,
-    .digiseller-store svg rect,
-    .digiseller-store svg circle {
-      fill: currentColor !important;
-    }
-
-    /* ── SCROLLBAR ── */
-    ::-webkit-scrollbar { width: 6px; }
-    ::-webkit-scrollbar-track { background: var(--bg); }
-    ::-webkit-scrollbar-thumb { background: #333; border-radius: 3px; }
-    ::-webkit-scrollbar-thumb:hover { background: #555; }
   </style>
 </head>
 <body>
 
-  <div class="site-header">
-    <h1>Выберите тариф</h1>
-    <p>Оплата через Digiseller — мгновенная доставка ключа на email</p>
+  <div class="logo">Pascal<span>VPN</span></div>
+
+  <div class="card">
+    <div class="plan-name">Подписка</div>
+    <div class="price"><sup>₽</sup>150</div>
+    <div class="price-sub">1 месяц</div>
+    <div class="divider"></div>
+    <ul class="features">
+      <li>Все устройства</li>
+      <li>60+ серверов</li>
+      <li>Без логов</li>
+      <li>Ключ сразу на email</li>
+    </ul>
+    <a class="btn" href="https://oplata.info/asp2/pay_wm.asp?id_d=5788788&lang=ru-RU" target="_blank" rel="noopener">
+      Оплатить
+    </a>
   </div>
 
-  <!-- Digiseller виджет магазина -->
-  <span class="digiseller-body" id="digiseller-body"
-    data-partner-id=""
-    data-cat="h"
-    data-logo="1"
-    data-downmenu="1"
-    data-purchases="1"
-    data-langs="1"
-    data-cart="1"
-    data-search="1">
-  </span>
-
-  <div class="site-footer">
-    🔐 Оплата защищена · Digiseller · Ключ придёт на email сразу после оплаты
-  </div>
+  <div class="footer-note">🔐 Безопасная оплата через Digiseller</div>
 
 </body>
 </html>
